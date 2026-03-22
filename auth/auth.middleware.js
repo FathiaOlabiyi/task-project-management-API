@@ -38,8 +38,8 @@ const validateToken = async(req, res, next) => {
     try {
         const bearerToken = req.headers.authorization;
 
-        if(!bearerToken && !bearerToken.startWith("Bearer ")) {
-            return res.statu(403).json({message: "Unauthorized"});
+        if(!bearerToken || !bearerToken.startsWith("Bearer ")) {
+            return res.status(403).json({message: "Unauthorized"});
         };
 
         const Token = bearerToken.split(" ")[1];
@@ -61,6 +61,7 @@ const validateToken = async(req, res, next) => {
                 message: "Unauthorized"
             });
         }
+        req.user = user;
         next();
     }catch(err) {
         return res.status(401).json({message: "Invalid Token", error: err.message});

@@ -30,6 +30,10 @@ app.use(passport.initialize());
 const authRoute = require("./auth/auth.route");
 app.use("/api/v1/auth", authRoute);
 
+//Project and co. routes
+const projectRoute = require("./projects/projects.route");
+app.use("/api/v1", projectRoute);
+
 
 
 module.exports = app;
